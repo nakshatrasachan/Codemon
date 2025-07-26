@@ -1,0 +1,15 @@
+{
+  "name": "my-code-editor",
+  "version": "1.0.0",
+  "description": "A simple code editor built with Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^25.3.0"
+  }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>My Code Editor</title>
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; }
+    .container { display: flex; flex-direction: column; height: 100%; }
+    .controls { padding: 5px; background-color: #f0f0f0; border-bottom: 1px solid #ccc; }
+    button { padding: 5px 10px; }
+    /* .editor-container { display: flex; height: 100%; } */
+    /* .gutter { flex: 0 0 40px; background: #f0f0f0; padding: 10px; text-align: right; user-select: none; } */
+    #editor { flex-grow: 1; border: none; padding: 10px; font-size: 16px; font-family: monospace; resize: none; outline: none; }
+    /* .keyword { color: #d73a49; }
+    .string { color: #032f62; }
+    .comment { color: #6a737d; } */
+     .CodeMirror {
+    flex-grow: 1; /* Make the editor grow to fill all remaining space */
+    height: auto; /* Allow the height to be controlled by flexbox */
+  }
+  </style>
+</head>
+<!-- <body>
+  <div class="container">
+    <div class="controls">
+      <button id="open-btn">Open File</button>
+      <button id="save-btn">Save File</button>
+    </div>
+    <div class="editor-container">
+        <div id="line-numbers" class="gutter"></div>
+        <pre id="highlighting-area"><code id="editor" contenteditable="true"></code></pre>
+       
+<pre id="highlighted" style="margin:0; padding:10px; font-size:16px; font-family:monospace; background:#fff; border:none;"></pre>
+    </div>
+  </div>
+
+  <script src="./renderer.js"></script>
+</body> -->
+
+<body>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/javascript/javascript.min.js"></script>
+
+  <div class="container">
+    <div class="controls">
+      <button id="open-btn">Open File</button>
+      <button id="save-btn">Save File</button>
+    </div>
+    <textarea id="editor"></textarea>
+  </div>
+
+  <script src="./renderer.js"></script>
+</body>
+</html>
