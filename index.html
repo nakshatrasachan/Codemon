@@ -56,6 +56,52 @@
     #file-tree li { padding: 2px 0; }
     #file-tree .file-item { cursor: pointer; }
     #file-tree .file-item:hover { text-decoration: underline; }
+
+     #tab-bar {
+      display: flex;
+      background-color: #21252b;
+      flex-shrink: 0;
+      border-bottom: 1px solid #181a1f;
+    }
+    .tab {
+      padding: 8px 15px;
+      color: #abb2bf;
+      border-right: 1px solid #181a1f;
+      cursor: pointer;
+      position: relative;
+    }
+    .tab.active {
+      background-color: #282a36; /* Same as Dracula theme background */
+      color: white;
+    }
+    .tab .close-btn {
+      position: absolute;
+      right: 0px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: bold;
+      display: none;
+      margin-left: 10px;
+    }
+    .tab:hover .close-btn {
+      display: inline;
+    }
+    .tab .unsaved-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: #e5c07b; /* A yellow/orange color */
+      border-radius: 50%;
+      position: absolute;
+      left: 5px; /* Position it next to the close button */
+      top: 50%;
+      transform: translateY(-50%);
+      display: none; /* Hidden by default */
+    }
+    
+    .tab.dirty .unsaved-dot {
+      display: inline-block; /* Show the dot when the tab is 'dirty' */
+    }
   </style>
 </head>
 <body>
@@ -70,6 +116,7 @@
     </div>
 
     <div class="editor-wrapper">
+      <div id="tab-bar"></div>
       <textarea id="editor"></textarea>
     </div>
   </div>

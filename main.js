@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Notification} = require('electron');
 const fs = require('fs');
 const path = require('path');
 
@@ -27,6 +27,7 @@ ipcMain.on('open-file-dialog', (event) => {
       const filePath = result.filePaths[0];
       const content = fs.readFileSync(filePath, 'utf-8');
       // Send the file content back to the renderer process
+      console.log("File Selected and file-opened sent");
       event.sender.send('file-opened', { filePath, content });
     }
   }).catch(err => {
@@ -34,19 +35,36 @@ ipcMain.on('open-file-dialog', (event) => {
   });
 });
 
-// Listen for a 'save-file-dialog' message
-ipcMain.on('save-file-dialog', (event, content) => {
-  dialog.showSaveDialog({
-    filters: [{ name: 'Text Files', extensions: ['txt', 'js', 'html', 'css', 'md'] }, { name: 'All Files', extensions: ['*'] }]
-  }).then(result => {
-    if (!result.canceled && result.filePath) {
-      fs.writeFileSync(result.filePath, content);
-    }
-  }).catch(err => {
-    console.log(err);
-  });
-});
+// // Listen for a 'save-file-dialog' message
+// ipcMain.on('save-file', (event, filePath, content) => {
+//   // dialog.showSaveDialog({
+//   //   filters: [{ name: 'Text Files', extensions: ['txt', 'js', 'html', 'css', 'md'] }, { name: 'All Files', extensions: ['*'] }]
+//   // }).then(result => {
+//   //   if (!result.canceled && result.filePath) {
+//   //     fs.writeFileSync(result.filePath, content);
+//   //   }
+//   // }).catch(err => {
+//   //   console.log(err);
+//   // });
+//   fs.writeFileSync(filePath, content);
+// });
+// Replace the old listener in main.js with this one
+ipcMain.on('save-file', (event, filePath, content) => {
+  try {
+    // Attempt to write the file to the disk
+    fs.writeFileSync(filePath, content);
 
+    // If writing is successful, create and show a notification
+    new Notification({
+      title: 'File Saved',
+      body: `${path.basename(filePath)} has been saved successfully.`
+    }).show();
+
+  } catch (error) {
+    // If an error occurs, log it to the terminal
+    console.error(`Failed to save file: ${filePath}`, error);
+  }
+});
 // Standard boilerplate for macOS
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
